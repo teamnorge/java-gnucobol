@@ -4,6 +4,8 @@ Sample program. Calling GnuCOBOL program from Java with JNA
 In this example we pass String to a GnuCOBOL program as a parameter by reference, change it inside GnuCOBOL program, and then see changes on the Java side. 
 
 **Cobol**
+------
+
 
 `cobol/cobchangestr.cbl`
 ```
@@ -25,6 +27,8 @@ Display current value of the `StringParameter`, change to "String Parameter chan
 return code - 2.
 
 **Java**
+------
+
 
 `LibCob.java`
 ```
@@ -38,3 +42,18 @@ public interface LibCob extends Library  {
 ```
 LibCob Java interface is used to initialize and test GnuCOBOL runtime. We will make a test call towards `libcob.so` shared library.
 `libcob.so` comes with the installation of the GnuCOBOL. 
+
+---
+
+`CobolChangeStringParameterByReference.java` 
+```
+/**
+ * GnuCOBOL program interface, change String parameter passed by reference
+ */
+public interface CobolChangeStringParameterByReference extends Library {
+    CobolChangeStringParameterByReference INSTANCE = Native.load("cobchangestr",
+            CobolChangeStringParameterByReference.class);
+    int cobchangestr(Pointer aValue);
+}
+```
+GnuCOBOL program interface, it provides access to a native compiled GnuCOBOL program. It looks for a library with the name `cobchangestr` (`libcobchangestr.so` for the Linux environments) and call a procedure with the name `cobchangestr`. See Cobol program code above.
