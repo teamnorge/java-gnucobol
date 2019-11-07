@@ -18,5 +18,3 @@ RUN cd /src && wget http://sourceforge.net/projects/open-cobol/files/gnu-cobol/$
     cd gnu-cobol-${GNU_COBOL} && ./configure ; make ; make check ; make install
 
 ENV LD_LIBRARY_PATH /usr/local/lib:$LD_LIBRARY_PATH
-
-CMD "./src/helloworld-exe"
